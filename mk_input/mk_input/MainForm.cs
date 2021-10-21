@@ -105,17 +105,17 @@ namespace mk_input
 			if (connected) {
 				try {
 					if (testPoint.X > myPoint.X)
-						_serialPort.Write("r" + (testPoint.X - myPoint.X) + "\n");
+						_serialPort.Write("r" + (testPoint.X - myPoint.X)*2 + "\n");
 					if (testPoint.X < myPoint.X)
-						_serialPort.Write("l" + (myPoint.X - testPoint.X) + "\n");
+						_serialPort.Write("l" + (myPoint.X - testPoint.X)*2 + "\n");
 					if (testPoint.Y < myPoint.Y)
-						_serialPort.Write("u" + (myPoint.Y - testPoint.Y) + "\n");
+						_serialPort.Write("u" + (myPoint.Y - testPoint.Y)*2 + "\n");
 					if (testPoint.Y > myPoint.Y)
-						_serialPort.Write("d" + (testPoint.Y - myPoint.Y) + "\n");
+						_serialPort.Write("d" + (testPoint.Y - myPoint.Y)*2 + "\n");
 				} catch (Exception ex) {
 					MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
 				}
-				label2.Text = myPoint + " " + testPoint;
+				this.label3.Text = myPoint + " " + testPoint;
 				myPoint = testPoint;
 				
 			}
@@ -155,6 +155,12 @@ namespace mk_input
 		private bool key_Handeled = false;
 		void TextBox1KeyDown(object sender, KeyEventArgs e)
 		{
+			
+			if (e.Control && e.KeyCode == Keys.C) {
+				//...
+				//e.SuppressKeyPress = true;
+			}
+			
 			//https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
 			//https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-5.0
 			//if (Control.ModifierKeys == Keys.Control && Control.ModifierKeys == Keys.Alt)
@@ -352,6 +358,15 @@ namespace mk_input
 				buf = 251; //KEY_F24
 				key_handeled = true;
 			}
+//			if (buf == 67) {
+//				buf = 'c'; //KEY_F24
+//				key_handeled = true;
+//			}
+//			if (buf == 86) {
+//				buf = 'v'; //KEY_F24
+//				key_handeled = true;
+//			}
+
 
 			if (connected && key_handeled) {
 				try {
@@ -375,7 +390,7 @@ namespace mk_input
 			} else if (connected) {
 				try {
 					int buf = (int)e.KeyChar;
-					label2.Text = buf.ToString();
+					label2.Text += " keychar" + buf.ToString();
 					_serialPort.Write("k" + buf.ToString() + "\n");
 				} catch (Exception ex) {
 					MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
@@ -578,6 +593,14 @@ namespace mk_input
 				buf = 251; //KEY_F24
 				key_handeled = true;
 			}
+//			if (buf == 67) {
+//				buf = 'c'; //KEY_F24
+//				key_handeled = true;
+//			}
+//			if (buf == 86) {
+//				buf = 'v'; //KEY_F24
+//				key_handeled = true;
+//			}
 
 			if (connected && key_handeled) {
 				try {
@@ -595,6 +618,12 @@ namespace mk_input
 			if (connected) {
 				Cursor.Position = new Point(this.Location.X + this.textBox1.Location.X + 8 + this.textBox1.Size.Width / 2, this.Location.Y + this.textBox1.Location.Y + 30 + this.textBox1.Size.Height / 2);
 				myPoint = Cursor.Position;
+			}
+		}
+		void TextBox1PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+		{
+			if (e.Control || e.Alt || e.Shift) {
+				e.IsInputKey = true;
 			}
 		}
 

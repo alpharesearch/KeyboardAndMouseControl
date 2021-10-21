@@ -20,6 +20,7 @@ namespace mk_input
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Label label3;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -49,6 +50,7 @@ namespace mk_input
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.label3 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// textBox1
@@ -68,6 +70,7 @@ namespace mk_input
 			this.textBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextBox1MouseDown);
 			this.textBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox1MouseMove);
 			this.textBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TextBox1MouseUp);
+			this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TextBox1PreviewKeyDown);
 			// 
 			// comboBox1
 			// 
@@ -103,7 +106,7 @@ namespace mk_input
 			// 
 			// label2
 			// 
-			this.label2.Location = new System.Drawing.Point(718, 791);
+			this.label2.Location = new System.Drawing.Point(679, 791);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(254, 23);
 			this.label2.TabIndex = 4;
@@ -113,11 +116,19 @@ namespace mk_input
 			this.timer1.Interval = 200;
 			this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
 			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(424, 791);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(249, 23);
+			this.label3.TabIndex = 5;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(986, 824);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button1);
