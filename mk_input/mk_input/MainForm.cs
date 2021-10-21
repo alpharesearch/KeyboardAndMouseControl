@@ -156,64 +156,23 @@ namespace mk_input
 		void TextBox1KeyDown(object sender, KeyEventArgs e)
 		{
 			
-			if (e.Control && e.KeyCode == Keys.C) {
+			// handle CTRL + key
+			if (e.Control && e.KeyCode != Keys.ControlKey) {
 				e.SuppressKeyPress = true;
+				string testKeyCode = Program.KeyCodeToUnicode(e.KeyCode);
+				int intTestKeyCode = (int)testKeyCode[0];
 				if (connected) {
 					try {
-						label2.Text = "CTRL + C";
+						label2.Text = "CTRL + "+intTestKeyCode;
 						_serialPort.Write("p128\n");
-						_serialPort.Write("p99\n");
+						_serialPort.Write("p"+intTestKeyCode+"\n");
 						_serialPort.Write("m9\n");
 						key_Handeled = true;
 					} catch (Exception ex) {
 						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
 					}
 				}
-			}
-			
-			if (e.Control && e.KeyCode == Keys.V) {
-				e.SuppressKeyPress = true;
-				if (connected) {
-					try {
-						label2.Text = "CTRL + C";
-						_serialPort.Write("p128\n");
-						_serialPort.Write("p118\n");
-						_serialPort.Write("m9\n");
-						key_Handeled = true;
-					} catch (Exception ex) {
-						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
-					}
-				}
-			}
-			
-			if (e.Control && e.KeyCode == Keys.A) {
-				e.SuppressKeyPress = true;
-				if (connected) {
-					try {
-						label2.Text = "CTRL + C";
-						_serialPort.Write("p128\n");
-						_serialPort.Write("p97\n");
-						_serialPort.Write("m9\n");
-						key_Handeled = true;
-					} catch (Exception ex) {
-						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
-					}
-				}
-			}
-			
-			if (e.Control && e.KeyCode == Keys.D) {
-				e.SuppressKeyPress = true;
-				if (connected) {
-					try {
-						label2.Text = "CTRL + C";
-						_serialPort.Write("p128\n");
-						_serialPort.Write("p100\n");
-						_serialPort.Write("m9\n");
-						key_Handeled = true;
-					} catch (Exception ex) {
-						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
-					}
-				}
+				return;
 			}
 			
 			//https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
