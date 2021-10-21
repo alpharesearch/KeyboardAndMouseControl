@@ -105,13 +105,13 @@ namespace mk_input
 			if (connected) {
 				try {
 					if (testPoint.X > myPoint.X)
-						_serialPort.Write("r" + (testPoint.X - myPoint.X)*2 + "\n");
+						_serialPort.Write("r" + (testPoint.X - myPoint.X) * 2 + "\n");
 					if (testPoint.X < myPoint.X)
-						_serialPort.Write("l" + (myPoint.X - testPoint.X)*2 + "\n");
+						_serialPort.Write("l" + (myPoint.X - testPoint.X) * 2 + "\n");
 					if (testPoint.Y < myPoint.Y)
-						_serialPort.Write("u" + (myPoint.Y - testPoint.Y)*2 + "\n");
+						_serialPort.Write("u" + (myPoint.Y - testPoint.Y) * 2 + "\n");
 					if (testPoint.Y > myPoint.Y)
-						_serialPort.Write("d" + (testPoint.Y - myPoint.Y)*2 + "\n");
+						_serialPort.Write("d" + (testPoint.Y - myPoint.Y) * 2 + "\n");
 				} catch (Exception ex) {
 					MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
 				}
@@ -157,8 +157,63 @@ namespace mk_input
 		{
 			
 			if (e.Control && e.KeyCode == Keys.C) {
-				//...
-				//e.SuppressKeyPress = true;
+				e.SuppressKeyPress = true;
+				if (connected) {
+					try {
+						label2.Text = "CTRL + C";
+						_serialPort.Write("p128\n");
+						_serialPort.Write("p99\n");
+						_serialPort.Write("m9\n");
+						key_Handeled = true;
+					} catch (Exception ex) {
+						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+					}
+				}
+			}
+			
+			if (e.Control && e.KeyCode == Keys.V) {
+				e.SuppressKeyPress = true;
+				if (connected) {
+					try {
+						label2.Text = "CTRL + C";
+						_serialPort.Write("p128\n");
+						_serialPort.Write("p118\n");
+						_serialPort.Write("m9\n");
+						key_Handeled = true;
+					} catch (Exception ex) {
+						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+					}
+				}
+			}
+			
+			if (e.Control && e.KeyCode == Keys.A) {
+				e.SuppressKeyPress = true;
+				if (connected) {
+					try {
+						label2.Text = "CTRL + C";
+						_serialPort.Write("p128\n");
+						_serialPort.Write("p97\n");
+						_serialPort.Write("m9\n");
+						key_Handeled = true;
+					} catch (Exception ex) {
+						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+					}
+				}
+			}
+			
+			if (e.Control && e.KeyCode == Keys.D) {
+				e.SuppressKeyPress = true;
+				if (connected) {
+					try {
+						label2.Text = "CTRL + C";
+						_serialPort.Write("p128\n");
+						_serialPort.Write("p100\n");
+						_serialPort.Write("m9\n");
+						key_Handeled = true;
+					} catch (Exception ex) {
+						MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+					}
+				}
 			}
 			
 			//https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
