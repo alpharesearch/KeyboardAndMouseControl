@@ -106,21 +106,21 @@ namespace mk_input
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(1175, 13);
+            this.label2.Location = new System.Drawing.Point(1039, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(254, 23);
             this.label2.TabIndex = 4;
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
             // label3
             // 
             this.label3.Location = new System.Drawing.Point(741, 13);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(428, 23);
+            this.label3.Size = new System.Drawing.Size(292, 21);
             this.label3.TabIndex = 5;
             // 
             // videoView1
@@ -165,7 +165,7 @@ namespace mk_input
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 775);
+            this.ClientSize = new System.Drawing.Size(1200, 774);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

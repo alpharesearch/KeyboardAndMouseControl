@@ -31,8 +31,14 @@ void loop() {
   if (Serial.available() > 0) {
     char inChar = Serial.read();
     int value = Serial.parseInt();
+    int value2 = 0;
     if (Serial.read() == '\n') {
       switch (inChar) {
+        case 'a':
+          // move mouse
+          value2 = Serial.parseInt();
+          Mouse.move(value, value2);
+          break;
         case 'u':
           // move mouse up
           Mouse.move(0, -1 * value);

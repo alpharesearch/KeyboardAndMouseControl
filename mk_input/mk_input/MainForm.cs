@@ -38,7 +38,7 @@ namespace mk_input
             _mediaPlayer.EnableMouseInput = false;
             _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
             _mediaPlayer.Media.AddOption(":dshow-adev=none");
-            _mediaPlayer.Media.AddOption(":dshow-vdev="+comboBox2.Text);
+            _mediaPlayer.Media.AddOption(":dshow-vdev=" + comboBox2.Text);
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
             _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
@@ -81,7 +81,7 @@ namespace mk_input
             this.Cursor = new Cursor(Cursor.Current.Handle);
             Cursor.Position = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + this.transpCtrl1.Size.Width / 2, this.Location.Y + this.transpCtrl1.Location.Y + 30 + this.transpCtrl1.Size.Height / 2);
             myPoint = Cursor.Position;
-            Cursor.Clip = new Rectangle(this.Location.X + this.transpCtrl1.Location.X + 10, this.Location.Y + this.transpCtrl1.Location.Y + 34, this.transpCtrl1.Size.Width - 6, this.transpCtrl1.Size.Height - 6);
+            Cursor.Clip = new Rectangle(this.Location.X + this.transpCtrl1.Location.X + 10, this.Location.Y + this.transpCtrl1.Location.Y + 34, this.transpCtrl1.Size.Width - 20, this.transpCtrl1.Size.Height - 77);
             Cursor.Hide();
             transpCtrl1.Focus();
             timer1.Enabled = true;
@@ -99,20 +99,20 @@ namespace mk_input
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
             _mediaPlayer.Media.AddOption(":dshow-fps=60");
             videoView1.MediaPlayer.Play();
-            
+
         }
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
             videoView1.Location = new Point(0, 34);
             videoView1.Size = this.Size;
+            transpCtrl1.Location = videoView1.Location;
+            transpCtrl1.Size = videoView1.Size;
 
         }
         void Timer1Tick(object sender, EventArgs e)
         {
             if (connected)
             {
-                Cursor.Position = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + this.transpCtrl1.Size.Width / 2, this.Location.Y + this.transpCtrl1.Location.Y + 30 + this.transpCtrl1.Size.Height / 2);
-                myPoint = Cursor.Position;
                 transpCtrl1.Focus();
             }
         }
@@ -204,31 +204,39 @@ namespace mk_input
             }
 
         }
+
+        private int delay = 0;
         private void transpCtrl1_MouseMove(object sender, MouseEventArgs e)
         {
-                            //new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + this.transpCtrl1.Size.Width / 2, this.Location.Y + this.transpCtrl1.Location.Y + 30 + this.transpCtrl1.Size.Height / 2);
-            Point testPoint = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + e.Location.X + 0, this.Location.Y + this.transpCtrl1.Location.Y + 30 + e.Location.Y + 1);
-
-            if (connected)
+            this.label3.Text = e.Location.ToString();
+            if (delay > 0) delay--;
+            else
             {
-                try
+                delay = 3;
+                Point testPoint = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + e.Location.X + 0, this.Location.Y + this.transpCtrl1.Location.Y + 30 + e.Location.Y + 1);
+                string buf = "not connected";
+                if (connected)
                 {
-                    if (testPoint.X > myPoint.X)
-                        _serialPort.Write("r" + (testPoint.X - myPoint.X) * 2 + "\n");
-                    if (testPoint.X < myPoint.X)
-                        _serialPort.Write("l" + (myPoint.X - testPoint.X) * 2 + "\n");
-                    if (testPoint.Y < myPoint.Y)
-                        _serialPort.Write("u" + (myPoint.Y - testPoint.Y) * 2 + "\n");
-                    if (testPoint.Y > myPoint.Y)
-                        _serialPort.Write("d" + (testPoint.Y - myPoint.Y) * 2 + "\n");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
-                }
-                this.label3.Text = "myPoint " + myPoint + " testPoint " + testPoint;
-                myPoint = testPoint;
+                    try
+                    {
+                        buf = "a\n " + (testPoint.X - myPoint.X) * 2 + "\n " + (testPoint.Y - myPoint.Y) * 2 + "\n";
+                        //buf = "a\n 2\n 2\n";
+                        _serialPort.Write(buf);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+                    }
 
+                    //this.label3.Text = myPoint+" myPoint " + testPoint + " testPoint ";
+
+                    myPoint = testPoint;
+                    if (e.Location.X < 3 || e.Location.X > this.transpCtrl1.Size.Width - 30 || e.Location.Y < 3 || e.Location.Y > this.transpCtrl1.Size.Height - 78)
+                    {
+                        Cursor.Position = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + this.transpCtrl1.Size.Width / 2, this.Location.Y + this.transpCtrl1.Location.Y + 30 + this.transpCtrl1.Size.Height / 2);
+                        myPoint = Cursor.Position;
+                    }
+                }
             }
         }
         private void transpCtrl1_KeyDown(object sender, KeyEventArgs e)
