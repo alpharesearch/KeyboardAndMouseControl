@@ -67,10 +67,7 @@ namespace mk_input
             connected = true;
             try
             {
-                _serialPort.Write("x0\n");
-                _serialPort.Write("y255\n");
-                _serialPort.Write("z0\n");
-                _serialPort.Write("s0\n");
+                _serialPort.Write("s\n 0 255 0");
             }
             catch (Exception ex)
             {
@@ -140,11 +137,8 @@ namespace mk_input
             {
                 try
                 {
-                    _serialPort.Write("m9\n");
-                    _serialPort.Write("x0\n");
-                    _serialPort.Write("y0\n");
-                    _serialPort.Write("z255\n");
-                    _serialPort.Write("s0\n");
+                    _serialPort.Write("m\n 9");
+                    _serialPort.Write("s\n 0 0 255");
                 }
                 catch (Exception ex)
                 {
@@ -172,11 +166,11 @@ namespace mk_input
                 try
                 {
                     if (e.Button == MouseButtons.Left)
-                        _serialPort.Write("m3\n");
+                        _serialPort.Write("m\n 3");
                     if (e.Button == MouseButtons.Right)
-                        _serialPort.Write("m4\n");
+                        _serialPort.Write("m\n 4");
                     if (e.Button == MouseButtons.Middle)
-                        _serialPort.Write("m5\n");
+                        _serialPort.Write("m\n 5");
                 }
                 catch (Exception ex)
                 {
@@ -191,11 +185,11 @@ namespace mk_input
                 try
                 {
                     if (e.Button == MouseButtons.Left)
-                        _serialPort.Write("m6\n");
+                        _serialPort.Write("m\n 6");
                     if (e.Button == MouseButtons.Right)
-                        _serialPort.Write("m7\n");
+                        _serialPort.Write("m\n 7");
                     if (e.Button == MouseButtons.Middle)
-                        _serialPort.Write("m8\n");
+                        _serialPort.Write("m\n 8");
                 }
                 catch (Exception ex)
                 {
@@ -219,7 +213,7 @@ namespace mk_input
                 {
                     try
                     {
-                        buf = "a\n " + (testPoint.X - myPoint.X) * 2 + "\n " + (testPoint.Y - myPoint.Y) * 2 + "\n";
+                        buf = "a\n " + (testPoint.X - myPoint.X) * 2 + " " + (testPoint.Y - myPoint.Y) * 2 + "";
                         //buf = "a\n 2\n 2\n";
                         _serialPort.Write(buf);
                     }
@@ -253,9 +247,9 @@ namespace mk_input
                     try
                     {
                         label2.Text = "CTRL + " + intTestKeyCode;
-                        _serialPort.Write("p128\n");
-                        _serialPort.Write("p" + intTestKeyCode + "\n");
-                        _serialPort.Write("m9\n");
+                        _serialPort.Write("p\n 128");
+                        _serialPort.Write("p\n " + intTestKeyCode + "");
+                        _serialPort.Write("m\n 9");
                         key_Handeled = true;
                     }
                     catch (Exception ex)
@@ -528,7 +522,7 @@ namespace mk_input
                 try
                 {
                     label2.Text = buf.ToString();
-                    _serialPort.Write("p" + buf.ToString() + "\n");
+                    _serialPort.Write("p\n " + buf.ToString() + "");
                     key_Handeled = key_handeled;
                 }
                 catch (Exception ex)
@@ -555,7 +549,7 @@ namespace mk_input
                 {
                     int buf = (int)e.KeyChar;
                     label2.Text += " keychar" + buf.ToString();
-                    _serialPort.Write("k" + buf.ToString() + "\n");
+                    _serialPort.Write("k\n " + buf.ToString() + "");
                 }
                 catch (Exception ex)
                 {
@@ -819,7 +813,7 @@ namespace mk_input
                 try
                 {
                     label2.Text = buf.ToString();
-                    _serialPort.Write("e" + buf.ToString() + "\n");
+                    _serialPort.Write("e\n " + buf.ToString() + "");
                 }
                 catch (Exception ex)
                 {
