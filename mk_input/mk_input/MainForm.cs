@@ -38,7 +38,7 @@ namespace mk_input
             _mediaPlayer.EnableMouseInput = false;
             _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
             _mediaPlayer.Media.AddOption(":dshow-adev=none");
-            _mediaPlayer.Media.AddOption(":dshow-vdev=USB3. 0 capture");
+            _mediaPlayer.Media.AddOption(":dshow-vdev="+comboBox2.Text);
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
             _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
@@ -86,10 +86,24 @@ namespace mk_input
             transpCtrl1.Focus();
             timer1.Enabled = true;
             button1.Enabled = false;
+            videoView1.MediaPlayer.Dispose();
+            _mediaPlayer = new MediaPlayer(_libVLC);
+            videoView1.MediaPlayer = _mediaPlayer;
+            _mediaPlayer.EnableKeyInput = false;
+            _mediaPlayer.EnableMouseInput = false;
+            _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
+            _mediaPlayer.Media.AddOption(":dshow-adev=none");
+            _mediaPlayer.Media.AddOption(":dshow-vdev=" + comboBox2.Text);
+            _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
+            _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
+            _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
+            _mediaPlayer.Media.AddOption(":dshow-fps=60");
+            videoView1.MediaPlayer.Play();
+            
         }
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
-            videoView1.Location = new Point(0, 54);
+            videoView1.Location = new Point(0, 34);
             videoView1.Size = this.Size;
 
         }
