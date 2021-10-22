@@ -41,6 +41,8 @@ namespace mk_input
             StringBuilder result = new StringBuilder();
             ToUnicodeEx(virtualKeyCode, scanCode, new byte[256], result, (int)5, (uint)0, inputLocaleIdentifier);
 
+            if (string.IsNullOrEmpty(result.ToString())) return String.Empty;
+
             return result.ToString();
         }
 

@@ -12,6 +12,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Threading;
 using System.Windows.Forms;
+using AForge.Video.DirectShow;
 using LibVLCSharp.Shared;
 
 namespace mk_input
@@ -39,6 +40,12 @@ namespace mk_input
             InitializeComponent();
             string[] ports = SerialPort.GetPortNames();
             this.comportComboBox.Items.AddRange(ports);
+            FilterInfoCollection videoDevices;
+            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            foreach (FilterInfo device in videoDevices)
+            {
+                this.usbComboBox.Items.Add(device.Name);
+            }
             _libVLC = new LibVLC();
             _mediaPlayer = new MediaPlayer(_libVLC);
             videoView1.MediaPlayer = _mediaPlayer;
@@ -48,7 +55,7 @@ namespace mk_input
             _mediaPlayer.Media.AddOption(":dshow-adev=none");
             _mediaPlayer.Media.AddOption(":dshow-vdev=" + usbComboBox.Text);
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
-            _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
+            _mediaPlayer.Media.AddOption(":dshow-size=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
             _mediaPlayer.Media.AddOption(":dshow-fps=60");
         }
@@ -90,6 +97,11 @@ namespace mk_input
             mouseAndKeyboardCatcherTranspCtrl.Focus();
             timer1.Enabled = true;
             connectButton.Enabled = false;
+            usbComboBox_SelectedValueChanged(sender, e);
+
+        }
+        private void usbComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
             videoView1.MediaPlayer.Dispose();
             _mediaPlayer = new MediaPlayer(_libVLC);
             videoView1.MediaPlayer = _mediaPlayer;
@@ -103,7 +115,6 @@ namespace mk_input
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
             _mediaPlayer.Media.AddOption(":dshow-fps=60");
             videoView1.MediaPlayer.Play();
-
         }
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
@@ -201,7 +212,7 @@ namespace mk_input
         }
         private void TranspCtrl1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.infoLabel3.Text = e.Location.ToString();
+            this.infoLabelMouse.Text = e.Location.ToString();
             if (delay > 0) delay--;
             else
             {
@@ -234,18 +245,18 @@ namespace mk_input
         }
         private void TranspCtrl1_KeyDown(object sender, KeyEventArgs e)
         {
-
+            string testKeyCode = Program.KeyCodeToUnicode(e.KeyCode);
+            int intTestKeyCode = 0;
+            if(testKeyCode.Length > 0) intTestKeyCode = (int)testKeyCode[0];
             // handle CTRL + key
             if (e.Control && e.KeyCode != Keys.ControlKey)
             {
                 e.SuppressKeyPress = true;
-                string testKeyCode = Program.KeyCodeToUnicode(e.KeyCode);
-                int intTestKeyCode = (int)testKeyCode[0];
                 if (connected)
                 {
                     try
                     {
-                        infoLabel2.Text = "CTRL + " + intTestKeyCode;
+                        infoLabelKeyboard.Text = "CTRL + " + intTestKeyCode;
                         _serialPort.Write("p\n 128");
                         _serialPort.Write("p\n " + intTestKeyCode + "");
                         _serialPort.Write("m\n 9");
@@ -520,7 +531,7 @@ namespace mk_input
             {
                 try
                 {
-                    infoLabel2.Text = buf.ToString();
+                    infoLabelKeyboard.Text = buf.ToString();
                     _serialPort.Write("p\n " + buf.ToString() + "");
                     key_Handeled = key_handeled;
                 }
@@ -530,7 +541,7 @@ namespace mk_input
                 }
             }
 
-            infoLabel2.Text = "down " + buf;
+            infoLabelKeyboard.Text = "D: USB " + buf + " ASCII " + intTestKeyCode;
 
         }
 
@@ -547,7 +558,7 @@ namespace mk_input
                 try
                 {
                     int buf = (int)e.KeyChar;
-                    infoLabel2.Text += " keychar" + buf.ToString();
+                    infoLabelKeyboard.Text += " keychar" + buf.ToString();
                     _serialPort.Write("k\n " + buf.ToString() + "");
                 }
                 catch (Exception ex)
@@ -559,6 +570,9 @@ namespace mk_input
 
         private void TranspCtrl1_KeyUp(object sender, KeyEventArgs e)
         {
+            string testKeyCode = Program.KeyCodeToUnicode(e.KeyCode);
+            int intTestKeyCode = 0;
+            if (testKeyCode.Length > 0) intTestKeyCode = (int)testKeyCode[0];
             //https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
             //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-5.0
             //if (Control.ModifierKeys == Keys.Control && Control.ModifierKeys == Keys.Alt)
@@ -811,7 +825,7 @@ namespace mk_input
             {
                 try
                 {
-                    infoLabel2.Text = buf.ToString();
+                    infoLabelKeyboard.Text = buf.ToString();
                     _serialPort.Write("e\n " + buf.ToString() + "");
                 }
                 catch (Exception ex)
@@ -819,7 +833,7 @@ namespace mk_input
                     MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
                 }
             }
-            infoLabel2.Text = "up " + buf;
+            infoLabelKeyboard.Text = "U: USB " + buf + " ASCII " + intTestKeyCode;
         }
     }
 }
