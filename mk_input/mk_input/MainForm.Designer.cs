@@ -52,6 +52,7 @@ namespace mk_input
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.videoView1 = new LibVLCSharp.WinForms.VideoView();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.videoView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +60,7 @@ namespace mk_input
             // 
             this.textBox1.AcceptsReturn = true;
             this.textBox1.AcceptsTab = true;
+            this.textBox1.BackColor = System.Drawing.Color.White;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
             this.textBox1.Location = new System.Drawing.Point(12, 44);
             this.textBox1.Multiline = true;
@@ -128,25 +130,44 @@ namespace mk_input
             // videoView1
             // 
             this.videoView1.BackColor = System.Drawing.Color.Black;
-            this.videoView1.Location = new System.Drawing.Point(988, 44);
+            this.videoView1.Location = new System.Drawing.Point(567, 8);
             this.videoView1.MediaPlayer = null;
             this.videoView1.Name = "videoView1";
             this.videoView1.Size = new System.Drawing.Size(960, 720);
             this.videoView1.TabIndex = 6;
             this.videoView1.Text = "videoView1";
+            this.videoView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.videoView1_KeyDown);
+            this.videoView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.videoView1_KeyPress);
+            this.videoView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.videoView1_KeyUp);
+            this.videoView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.videoView1_MouseDown);
+            this.videoView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.videoView1_MouseMove);
+            this.videoView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.videoView1_MouseUp);
+            this.videoView1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.videoView1_PreviewKeyDown);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "USB3. 0 capture"});
+            this.comboBox2.Location = new System.Drawing.Point(359, 10);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(167, 28);
+            this.comboBox2.TabIndex = 7;
+            this.comboBox2.Text = "USB3. 0 capture";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1963, 840);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.videoView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox1);
             this.Name = "MainForm";
             this.Text = "mk_input";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
@@ -160,5 +181,6 @@ namespace mk_input
         #endregion
 
         private LibVLCSharp.WinForms.VideoView videoView1;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }

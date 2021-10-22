@@ -35,11 +35,18 @@ namespace mk_input
 			_libVLC = new LibVLC();
 			_mp = new MediaPlayer(_libVLC);
 			videoView1.MediaPlayer = _mp;
+			_mp.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
+			_mp.Media.AddOption(":dshow-adev=none");
+			_mp.Media.AddOption(":dshow-vdev=USB3. 0 capture"); 
+			_mp.Media.AddOption(":dshow-vcodec=mjpeg");
+			_mp.Media.AddOption(":dshow-s=1280x720");
+			_mp.Media.AddOption(":dshow-fps=60");
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			videoView1.MediaPlayer.Play(new Media(_libVLC, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")));
+			videoView1.MediaPlayer.Play();
+			//videoView1.MediaPlayer.Play(new Media(_libVLC, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")));
 		}
 
 
@@ -651,5 +658,40 @@ namespace mk_input
 				e.IsInputKey = true;
 			}
 		}
+
+        private void videoView1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void videoView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void videoView1_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void videoView1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+
+        }
+
+        private void videoView1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void videoView1_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void videoView1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }
