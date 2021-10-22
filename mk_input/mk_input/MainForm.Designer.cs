@@ -8,41 +8,43 @@
  */
 namespace mk_input
 {
-	partial class MainForm
-	{
-		/// <summary>
-		/// Designer variable used to keep track of non-visual components.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.ComboBox comboBox1;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.Label label3;
-		/// <summary>
-		/// Disposes resources used by the form.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing) {
-				if (components != null) {
-					components.Dispose();
-				}
-			}
-			base.Dispose(disposing);
-		}
+    partial class MainForm
+    {
+        /// <summary>
+        /// Designer variable used to keep track of non-visual components.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label3;
+        /// <summary>
+        /// Disposes resources used by the form.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -63,11 +65,11 @@ namespace mk_input
             this.textBox1.AcceptsTab = true;
             this.textBox1.BackColor = System.Drawing.Color.White;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Location = new System.Drawing.Point(1003, 44);
+            this.textBox1.Location = new System.Drawing.Point(1435, 10);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ShortcutsEnabled = false;
-            this.textBox1.Size = new System.Drawing.Size(960, 720);
+            this.textBox1.Size = new System.Drawing.Size(960, 195);
             this.textBox1.TabIndex = 0;
             // 
             // comboBox1
@@ -96,7 +98,7 @@ namespace mk_input
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(12, 793);
+            this.label1.Location = new System.Drawing.Point(532, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(254, 21);
             this.label1.TabIndex = 3;
@@ -104,30 +106,30 @@ namespace mk_input
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(679, 791);
+            this.label2.Location = new System.Drawing.Point(1175, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(254, 23);
             this.label2.TabIndex = 4;
             // 
             // timer1
             // 
-            this.timer1.Interval = 200;
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(424, 791);
+            this.label3.Location = new System.Drawing.Point(741, 13);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(249, 23);
+            this.label3.Size = new System.Drawing.Size(428, 23);
             this.label3.TabIndex = 5;
             // 
             // videoView1
             // 
             this.videoView1.BackColor = System.Drawing.Color.Black;
-            this.videoView1.Location = new System.Drawing.Point(12, 44);
+            this.videoView1.Location = new System.Drawing.Point(0, 54);
             this.videoView1.MediaPlayer = null;
             this.videoView1.Name = "videoView1";
-            this.videoView1.Size = new System.Drawing.Size(960, 720);
+            this.videoView1.Size = new System.Drawing.Size(1200, 720);
             this.videoView1.TabIndex = 6;
             this.videoView1.Text = "videoView1";
             // 
@@ -145,10 +147,10 @@ namespace mk_input
             // transpCtrl1
             // 
             this.transpCtrl1.BackColor = System.Drawing.Color.Transparent;
-            this.transpCtrl1.Location = new System.Drawing.Point(0, 44);
+            this.transpCtrl1.Location = new System.Drawing.Point(0, 54);
             this.transpCtrl1.Name = "transpCtrl1";
             this.transpCtrl1.Opacity = 100;
-            this.transpCtrl1.Size = new System.Drawing.Size(990, 728);
+            this.transpCtrl1.Size = new System.Drawing.Size(631, 457);
             this.transpCtrl1.TabIndex = 8;
             this.transpCtrl1.Text = "transpCtrl1";
             this.transpCtrl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.transpCtrl1_KeyDown);
@@ -163,25 +165,27 @@ namespace mk_input
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(985, 840);
-            this.Controls.Add(this.transpCtrl1);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(1200, 775);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.transpCtrl1);
             this.Controls.Add(this.videoView1);
+            this.Controls.Add(this.textBox1);
             this.Name = "MainForm";
             this.Text = "mk_input";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.MainForm_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.videoView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
         #endregion
 
