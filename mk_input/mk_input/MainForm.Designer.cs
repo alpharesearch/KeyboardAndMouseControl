@@ -14,13 +14,16 @@ namespace mk_input
         /// Designer variable used to keep track of non-visual components.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox receiveTextBox;
+        private System.Windows.Forms.ComboBox comportComboBox;
+        private System.Windows.Forms.Button connectButton;
+        private System.Windows.Forms.Label infoLabel1;
+        private System.Windows.Forms.Label infoLabel2;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label infoLabel3;
+        private LibVLCSharp.WinForms.VideoView videoView1;
+        private System.Windows.Forms.ComboBox usbComboBox;
+        private TranspCtrl mouseAndKeyboardCatcherTranspCtrl;
         /// <summary>
         /// Disposes resources used by the form.
         /// </summary>
@@ -46,82 +49,82 @@ namespace mk_input
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.receiveTextBox = new System.Windows.Forms.TextBox();
+            this.comportComboBox = new System.Windows.Forms.ComboBox();
+            this.connectButton = new System.Windows.Forms.Button();
+            this.infoLabel1 = new System.Windows.Forms.Label();
+            this.infoLabel2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
+            this.infoLabel3 = new System.Windows.Forms.Label();
             this.videoView1 = new LibVLCSharp.WinForms.VideoView();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.transpCtrl1 = new mk_input.TranspCtrl();
+            this.usbComboBox = new System.Windows.Forms.ComboBox();
+            this.mouseAndKeyboardCatcherTranspCtrl = new mk_input.TranspCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.videoView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // receiveTextBox
             // 
-            this.textBox1.AcceptsReturn = true;
-            this.textBox1.AcceptsTab = true;
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Location = new System.Drawing.Point(1435, 10);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ShortcutsEnabled = false;
-            this.textBox1.Size = new System.Drawing.Size(960, 195);
-            this.textBox1.TabIndex = 0;
+            this.receiveTextBox.AcceptsReturn = true;
+            this.receiveTextBox.AcceptsTab = true;
+            this.receiveTextBox.BackColor = System.Drawing.Color.White;
+            this.receiveTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.receiveTextBox.Location = new System.Drawing.Point(1435, 10);
+            this.receiveTextBox.Multiline = true;
+            this.receiveTextBox.Name = "receiveTextBox";
+            this.receiveTextBox.ShortcutsEnabled = false;
+            this.receiveTextBox.Size = new System.Drawing.Size(960, 195);
+            this.receiveTextBox.TabIndex = 0;
             // 
-            // comboBox1
+            // comportComboBox
             // 
-            this.comboBox1.DisplayMember = "COM7";
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comportComboBox.DisplayMember = "COM7";
+            this.comportComboBox.FormattingEnabled = true;
+            this.comportComboBox.Items.AddRange(new object[] {
             "COM5",
             "COM6",
             "COM7"});
-            this.comboBox1.Location = new System.Drawing.Point(189, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(164, 28);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.Text = "COM7";
+            this.comportComboBox.Location = new System.Drawing.Point(189, 15);
+            this.comportComboBox.Name = "comportComboBox";
+            this.comportComboBox.Size = new System.Drawing.Size(164, 28);
+            this.comportComboBox.TabIndex = 1;
+            this.comportComboBox.Text = "COM7";
             // 
-            // button1
+            // connectButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 30);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1Click);
+            this.connectButton.Location = new System.Drawing.Point(12, 8);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(171, 40);
+            this.connectButton.TabIndex = 2;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.Button1Click);
             // 
-            // label1
+            // infoLabel1
             // 
-            this.label1.Location = new System.Drawing.Point(532, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(254, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Press right menu key to exit.";
+            this.infoLabel1.Location = new System.Drawing.Point(532, 18);
+            this.infoLabel1.Name = "infoLabel1";
+            this.infoLabel1.Size = new System.Drawing.Size(254, 21);
+            this.infoLabel1.TabIndex = 3;
+            this.infoLabel1.Text = "Press right menu key to exit.";
             // 
-            // label2
+            // infoLabel2
             // 
-            this.label2.Location = new System.Drawing.Point(1039, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(254, 23);
-            this.label2.TabIndex = 4;
+            this.infoLabel2.Location = new System.Drawing.Point(1039, 18);
+            this.infoLabel2.Name = "infoLabel2";
+            this.infoLabel2.Size = new System.Drawing.Size(254, 23);
+            this.infoLabel2.TabIndex = 4;
             // 
             // timer1
             // 
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
-            // label3
+            // infoLabel3
             // 
-            this.label3.Location = new System.Drawing.Point(741, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(292, 21);
-            this.label3.TabIndex = 5;
+            this.infoLabel3.Location = new System.Drawing.Point(741, 18);
+            this.infoLabel3.Name = "infoLabel3";
+            this.infoLabel3.Size = new System.Drawing.Size(292, 21);
+            this.infoLabel3.TabIndex = 5;
             // 
             // videoView1
             // 
@@ -133,48 +136,48 @@ namespace mk_input
             this.videoView1.TabIndex = 6;
             this.videoView1.Text = "videoView1";
             // 
-            // comboBox2
+            // usbComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.usbComboBox.FormattingEnabled = true;
+            this.usbComboBox.Items.AddRange(new object[] {
             "USB3. 0 capture"});
-            this.comboBox2.Location = new System.Drawing.Point(359, 10);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(167, 28);
-            this.comboBox2.TabIndex = 7;
-            this.comboBox2.Text = "USB3. 0 capture";
+            this.usbComboBox.Location = new System.Drawing.Point(359, 15);
+            this.usbComboBox.Name = "usbComboBox";
+            this.usbComboBox.Size = new System.Drawing.Size(167, 28);
+            this.usbComboBox.TabIndex = 7;
+            this.usbComboBox.Text = "USB3. 0 capture";
             // 
-            // transpCtrl1
+            // mouseAndKeyboardCatcherTranspCtrl
             // 
-            this.transpCtrl1.BackColor = System.Drawing.Color.Transparent;
-            this.transpCtrl1.Location = new System.Drawing.Point(0, 54);
-            this.transpCtrl1.Name = "transpCtrl1";
-            this.transpCtrl1.Opacity = 100;
-            this.transpCtrl1.Size = new System.Drawing.Size(631, 457);
-            this.transpCtrl1.TabIndex = 8;
-            this.transpCtrl1.Text = "transpCtrl1";
-            this.transpCtrl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.transpCtrl1_KeyDown);
-            this.transpCtrl1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.transpCtrl1_KeyPress);
-            this.transpCtrl1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.transpCtrl1_KeyUp);
-            this.transpCtrl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.transpCtrl1_MouseDown);
-            this.transpCtrl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.transpCtrl1_MouseMove);
-            this.transpCtrl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.transpCtrl1_MouseUp);
-            this.transpCtrl1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.transpCtrl1_PreviewKeyDown);
+            this.mouseAndKeyboardCatcherTranspCtrl.BackColor = System.Drawing.Color.Transparent;
+            this.mouseAndKeyboardCatcherTranspCtrl.Location = new System.Drawing.Point(0, 54);
+            this.mouseAndKeyboardCatcherTranspCtrl.Name = "mouseAndKeyboardCatcherTranspCtrl";
+            this.mouseAndKeyboardCatcherTranspCtrl.Opacity = 100;
+            this.mouseAndKeyboardCatcherTranspCtrl.Size = new System.Drawing.Size(631, 457);
+            this.mouseAndKeyboardCatcherTranspCtrl.TabIndex = 8;
+            this.mouseAndKeyboardCatcherTranspCtrl.Text = "transpCtrl1";
+            this.mouseAndKeyboardCatcherTranspCtrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TranspCtrl1_KeyDown);
+            this.mouseAndKeyboardCatcherTranspCtrl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TranspCtrl1_KeyPress);
+            this.mouseAndKeyboardCatcherTranspCtrl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TranspCtrl1_KeyUp);
+            this.mouseAndKeyboardCatcherTranspCtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TranspCtrl1_MouseDown);
+            this.mouseAndKeyboardCatcherTranspCtrl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TranspCtrl1_MouseMove);
+            this.mouseAndKeyboardCatcherTranspCtrl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TranspCtrl1_MouseUp);
+            this.mouseAndKeyboardCatcherTranspCtrl.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TranspCtrl1_PreviewKeyDown);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 774);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.transpCtrl1);
+            this.Controls.Add(this.usbComboBox);
+            this.Controls.Add(this.infoLabel3);
+            this.Controls.Add(this.infoLabel2);
+            this.Controls.Add(this.infoLabel1);
+            this.Controls.Add(this.connectButton);
+            this.Controls.Add(this.comportComboBox);
+            this.Controls.Add(this.mouseAndKeyboardCatcherTranspCtrl);
             this.Controls.Add(this.videoView1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.receiveTextBox);
             this.Name = "MainForm";
             this.Text = "mk_input";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
@@ -188,9 +191,5 @@ namespace mk_input
         }
 
         #endregion
-
-        private LibVLCSharp.WinForms.VideoView videoView1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private TranspCtrl transpCtrl1;
     }
 }

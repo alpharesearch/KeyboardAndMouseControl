@@ -23,7 +23,13 @@ namespace mk_input
     {
         public LibVLC _libVLC;
         public MediaPlayer _mediaPlayer;
+
         private SerialPort _serialPort;
+        private bool connected = false;
+        private Point myPoint;
+        private bool key_Handeled = false;
+        private int delay = 0;
+
         public MainForm()
         {
             if (!DesignMode)
@@ -38,20 +44,17 @@ namespace mk_input
             _mediaPlayer.EnableMouseInput = false;
             _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
             _mediaPlayer.Media.AddOption(":dshow-adev=none");
-            _mediaPlayer.Media.AddOption(":dshow-vdev=" + comboBox2.Text);
+            _mediaPlayer.Media.AddOption(":dshow-vdev=" + usbComboBox.Text);
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
             _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
             _mediaPlayer.Media.AddOption(":dshow-fps=60");
         }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             videoView1.MediaPlayer.Play();
             MainForm_ResizeEnd(sender, e);
         }
-
-        bool connected = false;
         void Button1Click(object sender, EventArgs e)
         {
             // all of the options for a serial device
@@ -60,9 +63,11 @@ namespace mk_input
             // ---- Data Bits = 8, Stop Bits = One, Handshake = None
             if (_serialPort != null)
                 _serialPort.Close();
-            _serialPort = new SerialPort(comboBox1.Text, 921600, Parity.None, 8, StopBits.One);
-            _serialPort.Handshake = Handshake.None;
-            _serialPort.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+            _serialPort = new SerialPort(comportComboBox.Text, 921600, Parity.None, 8, StopBits.One)
+            {
+                Handshake = Handshake.None
+            };
+            _serialPort.DataReceived += new SerialDataReceivedEventHandler(Sp_DataReceived);
             _serialPort.Open();
             connected = true;
             try
@@ -73,16 +78,16 @@ namespace mk_input
             {
                 MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
             }
-            transpCtrl1.Location = videoView1.Location;
-            transpCtrl1.Size = videoView1.Size;
+            mouseAndKeyboardCatcherTranspCtrl.Location = videoView1.Location;
+            mouseAndKeyboardCatcherTranspCtrl.Size = videoView1.Size;
             this.Cursor = new Cursor(Cursor.Current.Handle);
-            Cursor.Position = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + this.transpCtrl1.Size.Width / 2, this.Location.Y + this.transpCtrl1.Location.Y + 30 + this.transpCtrl1.Size.Height / 2);
+            Cursor.Position = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Width / 2, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Height / 2);
             myPoint = Cursor.Position;
-            Cursor.Clip = new Rectangle(this.Location.X + this.transpCtrl1.Location.X + 10, this.Location.Y + this.transpCtrl1.Location.Y + 34, this.transpCtrl1.Size.Width - 20, this.transpCtrl1.Size.Height - 77);
+            Cursor.Clip = new Rectangle(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 10, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 34, this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 20, this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 77);
             Cursor.Hide();
-            transpCtrl1.Focus();
+            mouseAndKeyboardCatcherTranspCtrl.Focus();
             timer1.Enabled = true;
-            button1.Enabled = false;
+            connectButton.Enabled = false;
             videoView1.MediaPlayer.Dispose();
             _mediaPlayer = new MediaPlayer(_libVLC);
             videoView1.MediaPlayer = _mediaPlayer;
@@ -90,7 +95,7 @@ namespace mk_input
             _mediaPlayer.EnableMouseInput = false;
             _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
             _mediaPlayer.Media.AddOption(":dshow-adev=none");
-            _mediaPlayer.Media.AddOption(":dshow-vdev=" + comboBox2.Text);
+            _mediaPlayer.Media.AddOption(":dshow-vdev=" + usbComboBox.Text);
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
             _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
@@ -102,34 +107,31 @@ namespace mk_input
         {
             videoView1.Location = new Point(0, 34);
             videoView1.Size = this.Size;
-            transpCtrl1.Location = videoView1.Location;
-            transpCtrl1.Size = videoView1.Size;
+            mouseAndKeyboardCatcherTranspCtrl.Location = videoView1.Location;
+            mouseAndKeyboardCatcherTranspCtrl.Size = videoView1.Size;
 
         }
         void Timer1Tick(object sender, EventArgs e)
         {
             if (connected)
             {
-                transpCtrl1.Focus();
+                mouseAndKeyboardCatcherTranspCtrl.Focus();
             }
         }
-
         delegate void SetTextCallback(string text);
-        void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        void Sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             Thread.Sleep(500);
             string data = _serialPort.ReadLine();
             // Invokes the delegate on the UI thread, and sends the data that was received to the invoked method.
             // ---- The "si_DataReceived" method will be executed on the UI thread which allows populating of the textbox.
             //this.BeginInvoke(new SetTextDeleg(si_DataReceived), new object[] { data });
-            this.BeginInvoke(new SetTextCallback(si_DataReceived), new object[] { data });
+            this.BeginInvoke(new SetTextCallback(Si_DataReceived), new object[] { data });
         }
-
-        private void si_DataReceived(string data)
+        private void Si_DataReceived(string data)
         {
-            textBox1.Text += data.Trim();
+            receiveTextBox.Text += data.Trim();
         }
-
         void MainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             Cursor.Show();
@@ -149,17 +151,14 @@ namespace mk_input
                 _serialPort.Close();
             connected = false;
         }
-
-        private Point myPoint;
-        private bool key_Handeled = false;
-        private void transpCtrl1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void TranspCtrl1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.Control || e.Alt || e.Shift)
             {
                 e.IsInputKey = true;
             }
         }
-        private void transpCtrl1_MouseDown(object sender, MouseEventArgs e)
+        private void TranspCtrl1_MouseDown(object sender, MouseEventArgs e)
         {
             if (connected)
             {
@@ -178,7 +177,7 @@ namespace mk_input
                 }
             }
         }
-        private void transpCtrl1_MouseUp(object sender, MouseEventArgs e)
+        private void TranspCtrl1_MouseUp(object sender, MouseEventArgs e)
         {
             if (connected)
             {
@@ -198,17 +197,15 @@ namespace mk_input
             }
 
         }
-
-        private int delay = 0;
-        private void transpCtrl1_MouseMove(object sender, MouseEventArgs e)
+        private void TranspCtrl1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.label3.Text = e.Location.ToString();
+            this.infoLabel3.Text = e.Location.ToString();
             if (delay > 0) delay--;
             else
             {
                 delay = 3;
-                Point testPoint = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + e.Location.X + 0, this.Location.Y + this.transpCtrl1.Location.Y + 30 + e.Location.Y + 1);
-                string buf = "not connected";
+                Point testPoint = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + e.Location.X + 0, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + e.Location.Y + 1);
+                string buf;// = "not connected";
                 if (connected)
                 {
                     try
@@ -225,15 +222,15 @@ namespace mk_input
                     //this.label3.Text = myPoint+" myPoint " + testPoint + " testPoint ";
 
                     myPoint = testPoint;
-                    if (e.Location.X < 3 || e.Location.X > this.transpCtrl1.Size.Width - 30 || e.Location.Y < 3 || e.Location.Y > this.transpCtrl1.Size.Height - 78)
+                    if (e.Location.X < 3 || e.Location.X > this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 30 || e.Location.Y < 3 || e.Location.Y > this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 78)
                     {
-                        Cursor.Position = new Point(this.Location.X + this.transpCtrl1.Location.X + 8 + this.transpCtrl1.Size.Width / 2, this.Location.Y + this.transpCtrl1.Location.Y + 30 + this.transpCtrl1.Size.Height / 2);
+                        Cursor.Position = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Width / 2, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Height / 2);
                         myPoint = Cursor.Position;
                     }
                 }
             }
         }
-        private void transpCtrl1_KeyDown(object sender, KeyEventArgs e)
+        private void TranspCtrl1_KeyDown(object sender, KeyEventArgs e)
         {
 
             // handle CTRL + key
@@ -246,7 +243,7 @@ namespace mk_input
                 {
                     try
                     {
-                        label2.Text = "CTRL + " + intTestKeyCode;
+                        infoLabel2.Text = "CTRL + " + intTestKeyCode;
                         _serialPort.Write("p\n 128");
                         _serialPort.Write("p\n " + intTestKeyCode + "");
                         _serialPort.Write("m\n 9");
@@ -264,7 +261,7 @@ namespace mk_input
             //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-5.0
             //if (Control.ModifierKeys == Keys.Control && Control.ModifierKeys == Keys.Alt)
             int buf = (int)e.KeyCode;
-            int mod = (int)e.Modifiers;
+            //int mod = (int)e.Modifiers;
             bool key_handeled = false;
             if (buf == 93)
             {
@@ -272,7 +269,7 @@ namespace mk_input
                 Cursor.Show();
                 timer1.Enabled = false;
                 MainFormFormClosing(sender, new FormClosingEventArgs(CloseReason.None, true));
-                button1.Enabled = true;
+                connectButton.Enabled = true;
             }
             if (buf == 244)
             {//17
@@ -521,7 +518,7 @@ namespace mk_input
             {
                 try
                 {
-                    label2.Text = buf.ToString();
+                    infoLabel2.Text = buf.ToString();
                     _serialPort.Write("p\n " + buf.ToString() + "");
                     key_Handeled = key_handeled;
                 }
@@ -531,11 +528,11 @@ namespace mk_input
                 }
             }
 
-            label2.Text = "down " + buf;
+            infoLabel2.Text = "down " + buf;
 
         }
 
-        private void transpCtrl1_KeyPress(object sender, KeyPressEventArgs e)
+        private void TranspCtrl1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (key_Handeled)
             {
@@ -548,7 +545,7 @@ namespace mk_input
                 try
                 {
                     int buf = (int)e.KeyChar;
-                    label2.Text += " keychar" + buf.ToString();
+                    infoLabel2.Text += " keychar" + buf.ToString();
                     _serialPort.Write("k\n " + buf.ToString() + "");
                 }
                 catch (Exception ex)
@@ -558,13 +555,13 @@ namespace mk_input
             }
         }
 
-        private void transpCtrl1_KeyUp(object sender, KeyEventArgs e)
+        private void TranspCtrl1_KeyUp(object sender, KeyEventArgs e)
         {
             //https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
             //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-5.0
             //if (Control.ModifierKeys == Keys.Control && Control.ModifierKeys == Keys.Alt)
             int buf = (int)e.KeyCode;
-            int mod = (int)e.Modifiers;
+            //int mod = (int)e.Modifiers;
             bool key_handeled = false;
             if (buf == 17)
             {//17
@@ -812,7 +809,7 @@ namespace mk_input
             {
                 try
                 {
-                    label2.Text = buf.ToString();
+                    infoLabel2.Text = buf.ToString();
                     _serialPort.Write("e\n " + buf.ToString() + "");
                 }
                 catch (Exception ex)
@@ -820,8 +817,7 @@ namespace mk_input
                     MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
                 }
             }
-            label2.Text = "up " + buf;
-
+            infoLabel2.Text = "up " + buf;
         }
     }
 }
