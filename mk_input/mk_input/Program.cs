@@ -31,13 +31,6 @@ namespace mk_input
 		
 		public static string KeyCodeToUnicode(Keys key)
 		{
-			byte[] keyboardState = new byte[255];
-			bool keyboardStateStatus = GetKeyboardState(keyboardState);
-
-			if (!keyboardStateStatus) {
-				return "";
-			}
-
 			uint virtualKeyCode = (uint)key;
 			uint scanCode = MapVirtualKey(virtualKeyCode, 0);
 			IntPtr inputLocaleIdentifier = GetKeyboardLayout(0);
@@ -47,9 +40,6 @@ namespace mk_input
 
 			return result.ToString();
 		}
-
-		[DllImport("user32.dll")]
-		static extern bool GetKeyboardState(byte[] lpKeyState);
 
 		[DllImport("user32.dll")]
 		static extern uint MapVirtualKey(uint uCode, uint uMapType);

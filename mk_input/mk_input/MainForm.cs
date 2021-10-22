@@ -12,6 +12,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Threading;
 using System.Windows.Forms;
+using LibVLCSharp.Shared;
 
 namespace mk_input
 {
@@ -20,18 +21,28 @@ namespace mk_input
 	/// </summary>
 	public partial class MainForm : Form
 	{
+		public LibVLC _libVLC;
+		public MediaPlayer _mp;
+
 		private SerialPort _serialPort;
 		public MainForm()
 		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
+			if (!DesignMode)
+			{
+				Core.Initialize();
+			}
 			InitializeComponent();
-			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
+			_libVLC = new LibVLC();
+			_mp = new MediaPlayer(_libVLC);
+			videoView1.MediaPlayer = _mp;
 		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			videoView1.MediaPlayer.Play(new Media(_libVLC, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")));
+		}
+
+
 		bool connected = false;
 		void Button1Click(object sender, EventArgs e)
 		{
@@ -640,6 +651,5 @@ namespace mk_input
 				e.IsInputKey = true;
 			}
 		}
-
-	}
+    }
 }
