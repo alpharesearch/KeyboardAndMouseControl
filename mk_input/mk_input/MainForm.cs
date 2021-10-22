@@ -37,6 +37,8 @@ namespace mk_input
                 Core.Initialize();
             }
             InitializeComponent();
+            string[] ports = SerialPort.GetPortNames();
+            this.comportComboBox.Items.AddRange(ports);
             _libVLC = new LibVLC();
             _mediaPlayer = new MediaPlayer(_libVLC);
             videoView1.MediaPlayer = _mediaPlayer;
