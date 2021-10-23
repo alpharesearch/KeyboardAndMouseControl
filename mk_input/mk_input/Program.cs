@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using System.Drawing;
 
 
-namespace mk_input
+namespace mvk_input
 {
     /// <summary>
     /// Class with program entry point.

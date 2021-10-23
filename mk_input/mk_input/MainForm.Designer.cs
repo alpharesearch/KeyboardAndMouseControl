@@ -6,7 +6,7 @@
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-namespace mk_input
+namespace mvk_input
 {
     partial class MainForm
     {
@@ -58,7 +58,7 @@ namespace mk_input
             this.infoLabelMouse = new System.Windows.Forms.Label();
             this.videoView1 = new LibVLCSharp.WinForms.VideoView();
             this.usbComboBox = new System.Windows.Forms.ComboBox();
-            this.mouseAndKeyboardCatcherTranspCtrl = new mk_input.TranspCtrl();
+            this.mouseAndKeyboardCatcherTranspCtrl = new mvk_input.TranspCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.videoView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,6 +131,7 @@ namespace mk_input
             this.videoView1.Name = "videoView1";
             this.videoView1.Size = new System.Drawing.Size(1200, 720);
             this.videoView1.TabIndex = 6;
+            this.videoView1.TabStop = false;
             this.videoView1.Text = "videoView1";
             // 
             // usbComboBox
@@ -175,7 +176,7 @@ namespace mk_input
             this.Controls.Add(this.videoView1);
             this.Controls.Add(this.receiveTextBox);
             this.Name = "MainForm";
-            this.Text = "mk_input";
+            this.Text = "KVM";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);

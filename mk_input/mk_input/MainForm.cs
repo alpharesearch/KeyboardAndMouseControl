@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using AForge.Video.DirectShow;
 using LibVLCSharp.Shared;
 
-namespace mk_input
+namespace mvk_input
 {
     /// <summary>
     /// Description of MainForm.
@@ -47,17 +47,7 @@ namespace mk_input
                 this.usbComboBox.Items.Add(device.Name);
             }
             _libVLC = new LibVLC();
-            _mediaPlayer = new MediaPlayer(_libVLC);
-            videoView1.MediaPlayer = _mediaPlayer;
-            _mediaPlayer.EnableKeyInput = false;
-            _mediaPlayer.EnableMouseInput = false;
-            _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
-            _mediaPlayer.Media.AddOption(":dshow-adev=none");
-            _mediaPlayer.Media.AddOption(":dshow-vdev=" + usbComboBox.Text);
-            _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
-            _mediaPlayer.Media.AddOption(":dshow-size=1920x1080");
-            _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
-            _mediaPlayer.Media.AddOption(":dshow-fps=60");
+            usbComboBox_SelectedValueChanged(this, new EventArgs());
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -102,18 +92,28 @@ namespace mk_input
         }
         private void usbComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            videoView1.MediaPlayer.Dispose();
+            if (videoView1.MediaPlayer != null) videoView1.MediaPlayer.Dispose();
             _mediaPlayer = new MediaPlayer(_libVLC);
             videoView1.MediaPlayer = _mediaPlayer;
             _mediaPlayer.EnableKeyInput = false;
             _mediaPlayer.EnableMouseInput = false;
             _mediaPlayer.Media = new Media(_libVLC, "dshow:// ", FromType.FromLocation);
+            _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
             _mediaPlayer.Media.AddOption(":dshow-adev=none");
             _mediaPlayer.Media.AddOption(":dshow-vdev=" + usbComboBox.Text);
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
-            _mediaPlayer.Media.AddOption(":dshow-s=1920x1080");
-            _mediaPlayer.Media.AddOption(":dshow-aspect-ratio=16:9");
+            _mediaPlayer.Media.AddOption(":dshow-size=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-fps=60");
+            _mediaPlayer.AspectRatio = "1920:1080";
+            //_mediaPlayer.Scale = (float)1.9;
+            //_mediaPlayer.AspectRatio = $"{videoView1.Width.ToString()}:{videoView1.Height.ToString()}";
+            //_mediaPlayer.Scale = 0;
+            float xscale, yscale;
+            xscale = (float)(videoView1.Width / 1920);
+            yscale = (float)(videoView1.Height / 1080);
+            //_mediaPlayer.Scale = (xscale < yscale) ? xscale : yscale;
+            //_mediaPlayer.Fullscreen = true;
+            //_mediaPlayer.AspectRatio = String.Format("{0}:{1}", this.Width, this.Height); ;
             videoView1.MediaPlayer.Play();
         }
         private void MainForm_ResizeEnd(object sender, EventArgs e)
