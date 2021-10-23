@@ -106,9 +106,9 @@ namespace mvk_input
             // 
             // infoLabelKeyboard
             // 
-            this.infoLabelKeyboard.Location = new System.Drawing.Point(946, 18);
+            this.infoLabelKeyboard.Location = new System.Drawing.Point(962, 18);
             this.infoLabelKeyboard.Name = "infoLabelKeyboard";
-            this.infoLabelKeyboard.Size = new System.Drawing.Size(254, 23);
+            this.infoLabelKeyboard.Size = new System.Drawing.Size(229, 23);
             this.infoLabelKeyboard.TabIndex = 4;
             // 
             // timer1

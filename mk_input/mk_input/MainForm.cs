@@ -187,6 +187,7 @@ namespace mvk_input
                 {
                     MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
                 }
+                infoLabelKeyboard.Text = "D: " + e.Button + "mouse button";
             }
         }
         private void TranspCtrl1_MouseUp(object sender, MouseEventArgs e)
@@ -206,16 +207,16 @@ namespace mvk_input
                 {
                     MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
                 }
+                infoLabelKeyboard.Text = "U: " + e.Button + "mouse button";
             }
 
         }
         private void TranspCtrl1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.infoLabelMouse.Text = e.Location.ToString();
             if (delay > 0) delay--;
             else
             {
-                delay = 3;
+                delay = 5;
                 Point testPoint = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + e.Location.X + 0, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + e.Location.Y + 1);
                 string buf;// = "not connected";
                 if (connected)
@@ -231,14 +232,13 @@ namespace mvk_input
                         MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
                     }
 
-                    //this.label3.Text = myPoint+" myPoint " + testPoint + " testPoint ";
-
                     myPoint = testPoint;
                     if (e.Location.X < 3 || e.Location.X > this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 30 || e.Location.Y < 3 || e.Location.Y > this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 28)
                     {
                         Cursor.Position = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Width / 2, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Height / 2);
                         myPoint = Cursor.Position;
                     }
+                    this.infoLabelMouse.Text = "Mouse: " + e.Location.ToString();
                 }
             }
         }
@@ -266,6 +266,7 @@ namespace mvk_input
                         MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
                     }
                 }
+                infoLabelKeyboard.Text = "D: USB " + (int)e.KeyCode + " ASCII " + intTestKeyCode + " CTRL ";
                 return;
             }
 
