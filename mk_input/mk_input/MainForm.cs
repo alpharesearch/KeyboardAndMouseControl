@@ -47,14 +47,14 @@ namespace mvk_input
                 this.usbComboBox.Items.Add(device.Name);
             }
             _libVLC = new LibVLC();
-            usbComboBox_SelectedValueChanged(this, new EventArgs());
+            VideoComboBox_SelectedValueChanged(this, new EventArgs());
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             videoView1.MediaPlayer.Play();
             MainForm_SizeChanged(sender, e);
         }
-        void Button1Click(object sender, EventArgs e)
+        void ConnectButtonClick(object sender, EventArgs e)
         {
             // all of the options for a serial device
             // ---- can be sent through the constructor of the SerialPort class
@@ -71,7 +71,7 @@ namespace mvk_input
             connected = true;
             try
             {
-                _serialPort.Write("s\n 0 255 0");
+                _serialPort.Write("s 0 255 0\n");
             }
             catch (Exception ex)
             {
@@ -82,15 +82,15 @@ namespace mvk_input
             this.Cursor = new Cursor(Cursor.Current.Handle);
             Cursor.Position = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Width / 2, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Height / 2);
             myPoint = Cursor.Position;
-            Cursor.Clip = new Rectangle(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 10, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 34, this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 20, this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 77);
+            Cursor.Clip = new Rectangle(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 10, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 34, this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 20, this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 27);//77
             Cursor.Hide();
             mouseAndKeyboardCatcherTranspCtrl.Focus();
             timer1.Enabled = true;
             connectButton.Enabled = false;
-            usbComboBox_SelectedValueChanged(sender, e);
+            VideoComboBox_SelectedValueChanged(sender, e);
 
         }
-        private void usbComboBox_SelectedValueChanged(object sender, EventArgs e)
+        private void VideoComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if (videoView1.MediaPlayer != null) videoView1.MediaPlayer.Dispose();
             _mediaPlayer = new MediaPlayer(_libVLC);
@@ -109,14 +109,15 @@ namespace mvk_input
             videoView1.MediaPlayer.Play();
         }
 
-        int oldwidth = 1222;
-        int oldhight = 807;
+        int oldWidth = 1222;
+        int oldHight = 807;
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             videoView1.Location = new Point(0, 34);
             videoView1.Size = new Size(this.Size.Width-14, this.Size.Height-74) ;
             mouseAndKeyboardCatcherTranspCtrl.Location = videoView1.Location;
             mouseAndKeyboardCatcherTranspCtrl.Size = videoView1.Size;
+
         }
         public void ResizeWidth(int newWidth)
         {
@@ -156,8 +157,8 @@ namespace mvk_input
             {
                 try
                 {
-                    _serialPort.Write("m\n 9");
-                    _serialPort.Write("s\n 0 0 255");
+                    _serialPort.Write("m 9 0 0\n");
+                    _serialPort.Write("s 0 0 255\n");
                 }
                 catch (Exception ex)
                 {
@@ -182,11 +183,11 @@ namespace mvk_input
                 try
                 {
                     if (e.Button == MouseButtons.Left)
-                        _serialPort.Write("m\n 3");
+                        _serialPort.Write("m 3 0 0\n");
                     if (e.Button == MouseButtons.Right)
-                        _serialPort.Write("m\n 4");
+                        _serialPort.Write("m 4 0 0\n");
                     if (e.Button == MouseButtons.Middle)
-                        _serialPort.Write("m\n 5");
+                        _serialPort.Write("m 5 0 0\n");
                 }
                 catch (Exception ex)
                 {
@@ -201,11 +202,11 @@ namespace mvk_input
                 try
                 {
                     if (e.Button == MouseButtons.Left)
-                        _serialPort.Write("m\n 6");
+                        _serialPort.Write("m 6 0 0\n");
                     if (e.Button == MouseButtons.Right)
-                        _serialPort.Write("m\n 7");
+                        _serialPort.Write("m 7 0 0\n");
                     if (e.Button == MouseButtons.Middle)
-                        _serialPort.Write("m\n 8");
+                        _serialPort.Write("m 8 0 0\n");
                 }
                 catch (Exception ex)
                 {
@@ -227,7 +228,7 @@ namespace mvk_input
                 {
                     try
                     {
-                        buf = "a\n " + (testPoint.X - myPoint.X) * 2 + " " + (testPoint.Y - myPoint.Y) * 2 + "";
+                        buf = "a " + (testPoint.X - myPoint.X) * 2 + " " + (testPoint.Y - myPoint.Y) * 2 + " 0\n";
                         //buf = "a\n 2\n 2\n";
                         _serialPort.Write(buf);
                     }
@@ -239,7 +240,7 @@ namespace mvk_input
                     //this.label3.Text = myPoint+" myPoint " + testPoint + " testPoint ";
 
                     myPoint = testPoint;
-                    if (e.Location.X < 3 || e.Location.X > this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 30 || e.Location.Y < 3 || e.Location.Y > this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 78)
+                    if (e.Location.X < 3 || e.Location.X > this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 30 || e.Location.Y < 3 || e.Location.Y > this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 28)
                     {
                         Cursor.Position = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Width / 2, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Height / 2);
                         myPoint = Cursor.Position;
@@ -261,9 +262,9 @@ namespace mvk_input
                     try
                     {
                         infoLabelKeyboard.Text = "CTRL + " + intTestKeyCode;
-                        _serialPort.Write("p\n 128");
-                        _serialPort.Write("p\n " + intTestKeyCode + "");
-                        _serialPort.Write("m\n 9");
+                        _serialPort.Write("p 128 0 0\n");
+                        _serialPort.Write("p " + intTestKeyCode + " 0 0\n");
+                        _serialPort.Write("m 9 0 0\n");
                         key_Handeled = true;
                     }
                     catch (Exception ex)
@@ -536,7 +537,7 @@ namespace mvk_input
                 try
                 {
                     infoLabelKeyboard.Text = buf.ToString();
-                    _serialPort.Write("p\n " + buf.ToString() + "");
+                    _serialPort.Write("p " + buf.ToString() + " 0 0\n");
                     key_Handeled = key_handeled;
                 }
                 catch (Exception ex)
@@ -563,7 +564,7 @@ namespace mvk_input
                 {
                     int buf = (int)e.KeyChar;
                     infoLabelKeyboard.Text += " keychar" + buf.ToString();
-                    _serialPort.Write("k\n " + buf.ToString() + "");
+                    _serialPort.Write("k " + buf.ToString() + " 0 0\n");
                 }
                 catch (Exception ex)
                 {
@@ -830,7 +831,7 @@ namespace mvk_input
                 try
                 {
                     infoLabelKeyboard.Text = buf.ToString();
-                    _serialPort.Write("e\n " + buf.ToString() + "");
+                    _serialPort.Write("e " + buf.ToString() + " 0 0\n");
                 }
                 catch (Exception ex)
                 {

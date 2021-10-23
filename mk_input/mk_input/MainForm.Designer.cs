@@ -94,7 +94,7 @@ namespace mvk_input
             this.connectButton.TabIndex = 2;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.Button1Click);
+            this.connectButton.Click += new System.EventHandler(this.ConnectButtonClick);
             // 
             // infoLabel1
             // 
@@ -142,7 +142,7 @@ namespace mvk_input
             this.usbComboBox.Size = new System.Drawing.Size(224, 28);
             this.usbComboBox.TabIndex = 7;
             this.usbComboBox.Text = "USB3. 0 capture";
-            this.usbComboBox.SelectedValueChanged += new System.EventHandler(this.usbComboBox_SelectedValueChanged);
+            this.usbComboBox.SelectedValueChanged += new System.EventHandler(this.VideoComboBox_SelectedValueChanged);
             // 
             // mouseAndKeyboardCatcherTranspCtrl
             // 
