@@ -165,7 +165,7 @@ namespace mvk_input
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 776);
+            this.ClientSize = new System.Drawing.Size(1200, 751);
             this.Controls.Add(this.usbComboBox);
             this.Controls.Add(this.infoLabelMouse);
             this.Controls.Add(this.infoLabelKeyboard);
@@ -179,8 +179,7 @@ namespace mvk_input
             this.Text = "KVM";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
-            this.SizeChanged += new System.EventHandler(this.MainForm_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.videoView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

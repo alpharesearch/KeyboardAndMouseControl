@@ -52,7 +52,7 @@ namespace mvk_input
         private void MainForm_Load(object sender, EventArgs e)
         {
             videoView1.MediaPlayer.Play();
-            MainForm_ResizeEnd(sender, e);
+            MainForm_SizeChanged(sender, e);
         }
         void Button1Click(object sender, EventArgs e)
         {
@@ -104,25 +104,29 @@ namespace mvk_input
             _mediaPlayer.Media.AddOption(":dshow-vcodec=mjpeg");
             _mediaPlayer.Media.AddOption(":dshow-size=1920x1080");
             _mediaPlayer.Media.AddOption(":dshow-fps=60");
-            _mediaPlayer.AspectRatio = "1920:1080";
-            //_mediaPlayer.Scale = (float)1.9;
-            //_mediaPlayer.AspectRatio = $"{videoView1.Width.ToString()}:{videoView1.Height.ToString()}";
+            //_mediaPlayer.AspectRatio = "1920:1080";
             //_mediaPlayer.Scale = 0;
-            float xscale, yscale;
-            xscale = (float)(videoView1.Width / 1920);
-            yscale = (float)(videoView1.Height / 1080);
-            //_mediaPlayer.Scale = (xscale < yscale) ? xscale : yscale;
-            //_mediaPlayer.Fullscreen = true;
-            //_mediaPlayer.AspectRatio = String.Format("{0}:{1}", this.Width, this.Height); ;
             videoView1.MediaPlayer.Play();
         }
-        private void MainForm_ResizeEnd(object sender, EventArgs e)
+
+        int oldwidth = 1222;
+        int oldhight = 807;
+        private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             videoView1.Location = new Point(0, 34);
-            videoView1.Size = this.Size;
+            videoView1.Size = new Size(this.Size.Width-14, this.Size.Height-74) ;
             mouseAndKeyboardCatcherTranspCtrl.Location = videoView1.Location;
             mouseAndKeyboardCatcherTranspCtrl.Size = videoView1.Size;
-
+        }
+        public void ResizeWidth(int newWidth)
+        {
+            this.Height = (int)((double)newWidth / (double)((double)this.Width / (double)this.Height));
+            this.Width = newWidth;
+        }
+        public void ResizeHeight(int newHeight)
+        {
+            this.Width = (int)((double)newHeight * (double)((double)this.Width / (double)this.Height));
+            this.Height = newHeight;
         }
         void Timer1Tick(object sender, EventArgs e)
         {
