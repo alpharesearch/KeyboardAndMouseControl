@@ -108,26 +108,20 @@ namespace mvk_input
             //_mediaPlayer.Scale = 0;
             videoView1.MediaPlayer.Play();
         }
-
-        int oldWidth = 1222;
-        int oldHight = 807;
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             videoView1.Location = new Point(0, 34);
             videoView1.Size = new Size(this.Size.Width-14, this.Size.Height-74) ;
             mouseAndKeyboardCatcherTranspCtrl.Location = videoView1.Location;
             mouseAndKeyboardCatcherTranspCtrl.Size = videoView1.Size;
-
+            
         }
-        public void ResizeWidth(int newWidth)
+        private int oldWidth = 1222;
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
-            this.Height = (int)((double)newWidth / (double)((double)this.Width / (double)this.Height));
-            this.Width = newWidth;
-        }
-        public void ResizeHeight(int newHeight)
-        {
-            this.Width = (int)((double)newHeight * (double)((double)this.Width / (double)this.Height));
-            this.Height = newHeight;
+            if (oldWidth != this.Width) this.Height = 77 + ((int)((double)this.Width / ((double)((double)16 / (double)9))));
+            else this.Width = -120 + ((int)((double)this.Height * ((double)((double)16 / (double)9))));
+            oldWidth = this.Width;
         }
         void Timer1Tick(object sender, EventArgs e)
         {
