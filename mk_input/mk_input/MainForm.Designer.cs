@@ -83,6 +83,7 @@ namespace mvk_input
             this.receiveTextBox.ShortcutsEnabled = false;
             this.receiveTextBox.Size = new System.Drawing.Size(960, 53);
             this.receiveTextBox.TabIndex = 0;
+            this.receiveTextBox.TabStop = false;
             this.receiveTextBox.Visible = false;
             // 
             // comportComboBox
@@ -93,6 +94,7 @@ namespace mvk_input
             this.comportComboBox.Name = "comportComboBox";
             this.comportComboBox.Size = new System.Drawing.Size(107, 28);
             this.comportComboBox.TabIndex = 1;
+            this.comportComboBox.TabStop = false;
             this.comportComboBox.Text = "COM7";
             // 
             // connectButton
@@ -101,6 +103,7 @@ namespace mvk_input
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(171, 40);
             this.connectButton.TabIndex = 2;
+            this.connectButton.TabStop = false;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
             this.connectButton.Click += new System.EventHandler(this.ConnectButtonClick);
@@ -150,6 +153,7 @@ namespace mvk_input
             this.usbComboBox.Name = "usbComboBox";
             this.usbComboBox.Size = new System.Drawing.Size(224, 28);
             this.usbComboBox.TabIndex = 7;
+            this.usbComboBox.TabStop = false;
             this.usbComboBox.Text = "USB3. 0 capture";
             this.usbComboBox.SelectedValueChanged += new System.EventHandler(this.VideoComboBox_SelectedValueChanged);
             // 
@@ -174,7 +178,7 @@ namespace mvk_input
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 751);
+            this.ClientSize = new System.Drawing.Size(1203, 751);
             this.Controls.Add(this.usbComboBox);
             this.Controls.Add(this.infoLabelMouse);
             this.Controls.Add(this.infoLabelKeyboard);

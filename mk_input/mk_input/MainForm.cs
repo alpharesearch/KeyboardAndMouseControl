@@ -92,12 +92,15 @@ namespace mvk_input
             Cursor.Position = new Point(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 8 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Width / 2, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 30 + this.mouseAndKeyboardCatcherTranspCtrl.Size.Height / 2);
             myPoint = Cursor.Position;
             Cursor.Clip = new Rectangle(this.Location.X + this.mouseAndKeyboardCatcherTranspCtrl.Location.X + 10, this.Location.Y + this.mouseAndKeyboardCatcherTranspCtrl.Location.Y + 34, this.mouseAndKeyboardCatcherTranspCtrl.Size.Width - 20, this.mouseAndKeyboardCatcherTranspCtrl.Size.Height - 27);//77
-            Cursor.Hide();
+            mouseAndKeyboardCatcherTranspCtrl.Select();
             mouseAndKeyboardCatcherTranspCtrl.Focus();
+            Cursor.Hide();
             timer1.Enabled = true;
             connectButton.Enabled = false;
+            comportComboBox.Enabled = false;
+            usbComboBox.Enabled = false;
             VideoComboBox_SelectedValueChanged(sender, e);
-
+            Cursor.Hide(); // not sure why it needs this for the 2nd connnect
         }
         private void VideoComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -132,10 +135,12 @@ namespace mvk_input
             else this.Width = -120 + ((int)((double)this.Height * ((double)((double)16 / (double)9))));
             oldWidth = this.Width;
         }
+        
         void Timer1Tick(object sender, EventArgs e)
         {
             if (connected)
             {
+                //mouseAndKeyboardCatcherTranspCtrl.Select();
                 mouseAndKeyboardCatcherTranspCtrl.Focus();
             }
         }
@@ -288,10 +293,12 @@ namespace mvk_input
             if (buf == 93)
             {
                 Cursor.Clip = new Rectangle(0, 0, 0, 0);
-                Cursor.Show();
                 timer1.Enabled = false;
                 MainFormFormClosing(sender, new FormClosingEventArgs(CloseReason.None, true));
                 connectButton.Enabled = true;
+                comportComboBox.Enabled = true;
+                usbComboBox.Enabled = true;
+                Cursor.Show();
             }
             if (buf == 244)
             {//17
