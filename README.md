@@ -7,7 +7,7 @@ The mk_input folder contains the C# source code for the Windows portion of the p
 
 You need to get two pieces of hardware, a microcontroller with two USB ports and a HDMI capture USB dongle that works with VLC. Here is what I got, but there are many different choises:  
 https://www.digikey.com/short/rm80t4z3  
-https://smile.amazon.com/dp/B091NX24PC
+https://amzn.to/3CavHh1
 
 After you load the Arduino sketch to the micocontroller you can send keyboard and mouse from the host to the guest.
 
