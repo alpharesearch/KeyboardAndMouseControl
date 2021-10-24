@@ -177,13 +177,6 @@ namespace mvk_input
                 _serialPort.Close();
             connected = false;
         }
-        private void TranspCtrl1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.Control || e.Alt || e.Shift)
-            {
-                e.IsInputKey = true;
-            }
-        }
         private void TranspCtrl1_MouseDown(object sender, MouseEventArgs e)
         {
             if (connected)
@@ -256,11 +249,19 @@ namespace mvk_input
                 }
             }
         }
+        private void TranspCtrl1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.Control || e.Alt || e.Shift || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.Tab)
+            {
+                e.IsInputKey = true;
+            }
+        }
         private void TranspCtrl1_KeyDown(object sender, KeyEventArgs e)
         {
             string testKeyCode = Program.KeyCodeToUnicode(e.KeyCode);
             int intTestKeyCode = 0;
             if(testKeyCode.Length > 0) intTestKeyCode = (int)testKeyCode[0];
+            
             // handle CTRL + key
             if (e.Control && e.KeyCode != Keys.ControlKey)
             {
@@ -269,7 +270,6 @@ namespace mvk_input
                 {
                     try
                     {
-                        infoLabelKeyboard.Text = "CTRL + " + intTestKeyCode;
                         _serialPort.Write("p 128 0 0\n");
                         _serialPort.Write("p " + intTestKeyCode + " 0 0\n");
                         _serialPort.Write("m 9 0 0\n");
@@ -281,6 +281,28 @@ namespace mvk_input
                     }
                 }
                 infoLabelKeyboard.Text = "D: USB " + (int)e.KeyCode + " ASCII " + intTestKeyCode + " CTRL ";
+                return;
+            }
+
+            // handle CTRL + key
+            if (e.Alt && e.KeyCode != Keys.Alt)
+            {
+                e.SuppressKeyPress = true;
+                if (connected)
+                {
+                    try
+                    {
+                        _serialPort.Write("p 130 0 0\n");
+                        _serialPort.Write("p " + intTestKeyCode + " 0 0\n");
+                        _serialPort.Write("m 9 0 0\n");
+                        key_Handeled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+                    }
+                }
+                infoLabelKeyboard.Text = "D: USB " + (int)e.KeyCode + " ASCII " + intTestKeyCode + " ALT ";
                 return;
             }
 
