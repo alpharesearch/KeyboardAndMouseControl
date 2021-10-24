@@ -1,2 +1,2 @@
 # mk_input
-The software KVM program, I started it under SharpDevelop, but I had to move to Visual Studio 2019 for the dependents. I'm using a few liberies, like VLC to show the other screen.
+ I started to program the software under SharpDevelop (RIP), but I had to move to Visual Studio 2019 to download all the dependents (like libVLCsharp) via NuGet. I will make the compiled version available as a download on GitHub.

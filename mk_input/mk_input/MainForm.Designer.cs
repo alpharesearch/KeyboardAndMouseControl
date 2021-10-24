@@ -189,7 +189,7 @@ namespace mvk_input
             this.Controls.Add(this.videoView1);
             this.Controls.Add(this.receiveTextBox);
             this.Name = "MainForm";
-            this.Text = "KVM";
+            this.Text = "KVM V1.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
