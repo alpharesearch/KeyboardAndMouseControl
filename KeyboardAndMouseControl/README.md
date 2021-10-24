@@ -1,2 +1,2 @@
 # KeyboardAndMouseControl
- Keyboard And Mouse Control
+I'm using the Espressif ESP32-S2-DevKitC-1 because it has two USB ports. But any microcontaller that can be made to work with a serial port on one USB port and a HID keyboard and mouse port on another USB port should work. I used Ardoino 1.8.16, the compile is very fast under Linux but very slow under Windows. At this point of time, to get the S2 working I had to install the ES32 beta V2.0 board version.
