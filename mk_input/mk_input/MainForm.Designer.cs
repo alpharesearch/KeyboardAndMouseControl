@@ -191,7 +191,7 @@ namespace mvk_input
             this.Controls.Add(this.receiveTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "KVM V1.0";
+            this.Text = "KVM V1.0.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
