@@ -237,7 +237,7 @@ namespace mvk_input
                 {
                     try
                     {
-                        buf = "a " + (testPoint.X - myPoint.X) * 2 + " " + (testPoint.Y - myPoint.Y) * 2 + " 0\n";
+                        buf = "a " + (testPoint.X - myPoint.X) * 1 + " " + (testPoint.Y - myPoint.Y) * 1 + " 0\n";
                         //buf = "a\n 2\n 2\n";
                         _serialPort.Write(buf);
                     }
