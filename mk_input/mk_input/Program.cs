@@ -19,7 +19,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Configuration;
 using System.Drawing;
 
 
@@ -66,7 +66,36 @@ namespace mvk_input
 
     }
 
+    public class MyUserSettings : ApplicationSettingsBase
+    {
+        [UserScopedSetting()]
+        [DefaultSettingValue("USBx")]
+        public String UsbDevice
+        {
+            get
+            {
+                return ((String)this["UsbDevice"]);
+            }
+            set
+            {
+                this["UsbDevice"] = (String)value;
+            }
+        }
 
+        [UserScopedSetting()]
+        [DefaultSettingValue("COMx")]
+        public String ComPort
+        {
+            get
+            {
+                return ((String)this["ComPort"]);
+            }
+            set
+            {
+                this["ComPort"] = (String)value;
+            }
+        }
+    }
     public class TranspCtrl : Control
     {
         public bool drag = false;

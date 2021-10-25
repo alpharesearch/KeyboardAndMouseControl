@@ -39,6 +39,7 @@ namespace mvk_input
         private Point myPoint;
         private bool key_Handeled = false;
         private int delay = 0;
+        private MyUserSettings settings;
 
         public MainForm()
         {
@@ -60,11 +61,17 @@ namespace mvk_input
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            settings = new MyUserSettings();
+            usbComboBox.Text = settings.UsbDevice;
+            comportComboBox.Text = settings.ComPort;
             videoView1.MediaPlayer.Play();
             MainForm_SizeChanged(sender, e);
         }
         void ConnectButtonClick(object sender, EventArgs e)
         {
+            settings.UsbDevice = usbComboBox.Text;
+            settings.ComPort = comportComboBox.Text;
+            settings.Save();
             // all of the options for a serial device
             // ---- can be sent through the constructor of the SerialPort class
             // ---- PortName = "COM1", Baud Rate = 19200, Parity = None,
