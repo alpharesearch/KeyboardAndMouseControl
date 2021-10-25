@@ -58,6 +58,7 @@ namespace mvk_input
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.receiveTextBox = new System.Windows.Forms.TextBox();
             this.comportComboBox = new System.Windows.Forms.ComboBox();
             this.connectButton = new System.Windows.Forms.Button();
@@ -188,6 +189,7 @@ namespace mvk_input
             this.Controls.Add(this.mouseAndKeyboardCatcherTranspCtrl);
             this.Controls.Add(this.videoView1);
             this.Controls.Add(this.receiveTextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "KVM V1.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
